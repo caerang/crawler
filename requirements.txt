@@ -1,0 +1,4 @@
+requests
+django
+jupyter
+beautifulsoup4
