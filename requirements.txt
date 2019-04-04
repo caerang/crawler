@@ -2,3 +2,5 @@ requests
 django
 jupyter
 beautifulsoup4
+selenium
+tqdm
