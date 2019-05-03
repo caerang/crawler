@@ -73,6 +73,5 @@ class Browser:
         if offset == -1:
             self.driver.execute_script('window.scrollTo(0, 0')
         else:
-            self.driver.execute_script(f'window.scrollBy(0, {offset}')
+            self.driver.execute_script(f'window.scrollBy(0, {offset})')
         randomized_sleep(wait)
-

@@ -20,6 +20,7 @@ from exceptions import RetryException
 from utils import retry
 from tqdm import tqdm
 from time import sleep
+from downloader import download_images
 
 
 class Logging:
@@ -161,6 +162,12 @@ def get_posts_by_hashtag(tag, number, debug):
     return ins_crawler.get_latest_posts_by_tag(tag, number)
 
 
+def download_images_by_hashtag(tag, number, debug):
+    ins_crawler = InsCrawler(has_screen=debug)
+    posts = ins_crawler.get_latest_posts_by_tag(tag, number)
+    download_images(posts, tag)
+
+
 def arg_required(argv, fields=[]):
     for field in fields:
         if not getattr(argv, field):
@@ -168,7 +175,7 @@ def arg_required(argv, fields=[]):
             sys.exit()
 
 
-def output(data, filepath):
+def output(data, filepath=None):
     out = json.dumps(data, ensure_ascii=False)
     if filepath:
         with open(filepath, 'w', encoding='utf8') as f:
@@ -192,7 +199,8 @@ if __name__ == '__main__':
 
     if args.mode == 'hashtag':
         arg_required('tag')
-        output(get_posts_by_hashtag(args.tag, args.number or 100, args.debug),
-               args.output)
+        # output(get_posts_by_hashtag(args.tag, args.number or 100, args.debug),
+        #        args.output)
+        download_images_by_hashtag(args.tag, args.number or 100, args.debug)
     else:
         usage()

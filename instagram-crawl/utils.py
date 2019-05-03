@@ -10,6 +10,7 @@ import random
 from functools import wraps
 from exceptions import RetryException
 
+
 def retry(attempt=10, wait=0.3):
     def wrap(func):
         @wraps(func)
